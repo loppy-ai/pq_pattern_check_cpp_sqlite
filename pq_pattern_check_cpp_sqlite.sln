@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "display_of_chain_results", "display_of_chain_results\display_of_chain_results.vcxproj", "{5C5A7FA6-85B1-4439-A525-702310A7E151}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "find_the_best_pattern_sqlite", "find_the_best_pattern_sqlite\find_the_best_pattern_sqlite.vcxproj", "{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "register_sqlite", "register_sqlite\register_sqlite.vcxproj", "{9905BAE8-3C90-4553-86E0-0EFDE6C77863}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "share_class", "share_class\share_class.vcxitems", "{7B636CBA-F226-449D-AE8A-C4731B40ED60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C5A7FA6-85B1-4439-A525-702310A7E151}.Debug|x64.ActiveCfg = Debug|x64
+		{5C5A7FA6-85B1-4439-A525-702310A7E151}.Debug|x64.Build.0 = Debug|x64
+		{5C5A7FA6-85B1-4439-A525-702310A7E151}.Debug|x86.ActiveCfg = Debug|Win32
+		{5C5A7FA6-85B1-4439-A525-702310A7E151}.Debug|x86.Build.0 = Debug|Win32
+		{5C5A7FA6-85B1-4439-A525-702310A7E151}.Release|x64.ActiveCfg = Release|x64
+		{5C5A7FA6-85B1-4439-A525-702310A7E151}.Release|x64.Build.0 = Release|x64
+		{5C5A7FA6-85B1-4439-A525-702310A7E151}.Release|x86.ActiveCfg = Release|Win32
+		{5C5A7FA6-85B1-4439-A525-702310A7E151}.Release|x86.Build.0 = Release|Win32
+		{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}.Debug|x64.ActiveCfg = Debug|x64
+		{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}.Debug|x64.Build.0 = Debug|x64
+		{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}.Debug|x86.Build.0 = Debug|Win32
+		{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}.Release|x64.ActiveCfg = Release|x64
+		{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}.Release|x64.Build.0 = Release|x64
+		{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}.Release|x86.ActiveCfg = Release|Win32
+		{C5B1D8A3-BFCE-4191-BFA7-BDDACD984D1E}.Release|x86.Build.0 = Release|Win32
+		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Debug|x64.ActiveCfg = Debug|x64
+		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Debug|x64.Build.0 = Debug|x64
+		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Debug|x86.ActiveCfg = Debug|Win32
+		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Debug|x86.Build.0 = Debug|Win32
+		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Release|x64.ActiveCfg = Release|x64
+		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Release|x64.Build.0 = Release|x64
+		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Release|x86.ActiveCfg = Release|Win32
+		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {428A3119-8373-48C4-952C-C41E15678556}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		share_class\share_class.vcxitems*{5c5a7fa6-85b1-4439-a525-702310a7e151}*SharedItemsImports = 4
+		share_class\share_class.vcxitems*{7b636cba-f226-449d-ae8a-c4731b40ed60}*SharedItemsImports = 9
+		share_class\share_class.vcxitems*{9905bae8-3c90-4553-86e0-0efde6c77863}*SharedItemsImports = 4
+		share_class\share_class.vcxitems*{c5b1d8a3-bfce-4191-bfa7-bddacd984d1e}*SharedItemsImports = 4
+	EndGlobalSection
+EndGlobal

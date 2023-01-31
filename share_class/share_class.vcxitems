@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{7b636cba-f226-449d-ae8a-c4731b40ed60}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\board.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\chain_info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\check_board.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\element.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\fixed_board.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\fixed_next.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\next.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\param.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\param_info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\print.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\size.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\trace_pattern_board.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\board.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\chain_info.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\check_board.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\fixed_board.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\fixed_next.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\next.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\param_info.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\print.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\trace_pattern_board.cpp" />
+  </ItemGroup>
+</Project>
