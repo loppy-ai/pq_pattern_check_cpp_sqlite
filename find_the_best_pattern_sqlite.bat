@@ -1,8 +1,5 @@
 @echo off
 
 cd x64\Release
-rem ãƒã‚¯ã‚¹ãƒˆ/ç›¤é¢/æœ€å¤§ãªãã‚Šæ•°/åŒæ™‚æ¶ˆã—ä¿‚æ•°/é€£é–ä¿‚æ•°/æ±‚ã‚ã‚‹è‰²
-
-call find_the_best_pattern_sqlite 1 1 5 6 7 1
-
-cd ../../
+rem ƒlƒNƒXƒg/”Õ–Ê/Å‘å‚È‚¼‚è”/“¯Á‚µŒW”/˜A½ŒW”/‹‚ß‚éF
+call find_the_best_pattern_sqlite 1 302 15 7 10.5 1
