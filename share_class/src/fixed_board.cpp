@@ -1,4 +1,4 @@
-#include "../include/fixed_board.h"
+#include <fixed_board.h>
 
 Fixed_Board::Fixed_Board(const int board_pattern)
 {

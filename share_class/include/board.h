@@ -7,7 +7,7 @@
 class Board
 {
 private:
-	int board_entity[board_size] = { 0 };	// 盤面の実体
+	int board_entity[BOARD_SIZE] = { 0 };	// 盤面の実体
 	int *board;								// 盤面アクセス用のアドレス
 
 public:

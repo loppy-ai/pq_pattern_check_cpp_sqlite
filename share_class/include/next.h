@@ -7,7 +7,7 @@
 class Next
 {
 private:
-	int next_entity[next_size] = { 0 };
+	int next_entity[NEXT_SIZE] = { 0 };
 	int *next;
 
 protected:

@@ -1,7 +1,8 @@
 #pragma once
-constexpr int row_size = 6;
-constexpr int column_size = 8;
-constexpr int board_size = row_size * column_size;
-constexpr int next_size = column_size;
-constexpr int end_of_board = board_size - 1;
-constexpr int max_num_of_chain = 16;
+constexpr int ROW_SIZE = 6;
+constexpr int COLUMN_SIZE = 8;
+constexpr int BOARD_SIZE = ROW_SIZE * COLUMN_SIZE;
+constexpr int NEXT_SIZE = COLUMN_SIZE;
+constexpr int END_OF_BOARD = BOARD_SIZE - 1;
+constexpr int MAX_NUM_OF_CHAIN = 16;
+constexpr int COLOR_SIZE = 5;

@@ -1,4 +1,4 @@
-#include "../include/board.h"
+#include <board.h>
 
 Board::Board()
 {
@@ -19,7 +19,7 @@ int* Board::getBoard()
 // 盤面の設定
 void Board::setBoard(const int* input_board)
 {
-	std::memcpy(board, input_board, board_size * 4);	// int:4byte
+	std::memcpy(board, input_board, BOARD_SIZE * 4);	// int:4byte
 }
 
 // 盤面の要素を取得
@@ -79,7 +79,7 @@ bool Board::isNone(const int no) const
 // ぷよの消去が起こったか
 bool Board::isEliminationHappened() const
 {
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		if (getBoardElement(i) == Elimination)	return true;
 	}
 	return false;
@@ -88,35 +88,35 @@ bool Board::isEliminationHappened() const
 // 上段があるか
 bool Board::canGetUpperRow(const int no) const
 {
-	if (no >= column_size)	return true;
+	if (no >= COLUMN_SIZE)	return true;
 	return false;
 }
 
 // 右列があるか
 bool Board::canGetRightColumn(const int no) const
 {
-	if ((no & (column_size - 1)) != column_size - 1)	return true;
+	if ((no & (COLUMN_SIZE - 1)) != COLUMN_SIZE - 1)	return true;
 	return false;
 }
 
 // 下段があるか
 bool Board::canGetLowerRow(const int no) const
 {
-	if (no < board_size - column_size)	return true;
+	if (no < BOARD_SIZE - COLUMN_SIZE)	return true;
 	return false;
 }
 
 // 左列があるか
 bool Board::canGetLeftColumn(const int no) const
 {
-	if ((no & (column_size - 1)) != 0)	return true;
+	if ((no & (COLUMN_SIZE - 1)) != 0)	return true;
 	return false;
 }
 
 // 現在の箇所が上の色と同じか
 bool Board::isSameUpper(const int no) const
 {
-	if (getBoardElement(no) == getBoardElement(no - column_size))	return true;
+	if (getBoardElement(no) == getBoardElement(no - COLUMN_SIZE))	return true;
 	return false;
 }
 
@@ -130,7 +130,7 @@ bool Board::isSameRight(const int no) const
 // 現在の箇所が下の色と同じか
 bool Board::isSameLower(const int no) const
 {
-	if (getBoardElement(no) == getBoardElement(no + column_size))	return true;
+	if (getBoardElement(no) == getBoardElement(no + COLUMN_SIZE))	return true;
 	return false;
 }
 
@@ -144,14 +144,14 @@ bool Board::isSameLeft(const int no) const
 // 盤面表示
 void Board::print() const
 {
-	std::string str_board[column_size];
-	for (int i = 0; i < row_size; ++i) {
-		for (int j = 0; j < column_size; ++j) {
-			if (getBoardElement(i * column_size + j) == None) {
+	std::string str_board[COLUMN_SIZE];
+	for (int i = 0; i < ROW_SIZE; ++i) {
+		for (int j = 0; j < COLUMN_SIZE; ++j) {
+			if (getBoardElement(i * COLUMN_SIZE + j) == None) {
 				str_board[j] = ".";
 			}
 			else {
-				str_board[j] = std::to_string(getBoardElement(i * column_size + j));
+				str_board[j] = std::to_string(getBoardElement(i * COLUMN_SIZE + j));
 			}
 		}
 		std::cout 

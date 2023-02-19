@@ -26,7 +26,7 @@ class Chain_Info
 {
 private:
 	int num_of_chain;	// Å‘å˜A½”
-	Info_Per_Chain all_chain_info[max_num_of_chain] = { 0 };	// ˜A½î•ñ‚ÌÀ‘Ì
+	Info_Per_Chain all_chain_info[MAX_NUM_OF_CHAIN] = { 0 };	// ˜A½î•ñ‚ÌÀ‘Ì
 
 	void chain(const Param_Info*, Next*, Board*, const Board*);
 	void applyTracePattern(Board*, const Board*);

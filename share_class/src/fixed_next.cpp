@@ -1,4 +1,4 @@
-#include "../include/fixed_next.h"
+#include <fixed_next.h>
 
 Fixed_Next::Fixed_Next(const int next_color)
 {

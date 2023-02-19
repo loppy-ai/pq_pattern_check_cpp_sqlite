@@ -482,3 +482,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/find_the_best_pattern_sqlite_2.bat

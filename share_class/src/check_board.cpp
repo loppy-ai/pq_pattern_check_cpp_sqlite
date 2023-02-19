@@ -1,4 +1,4 @@
-#include "../include/check_board.h"
+#include <check_board.h>
 
 Check_Board::Check_Board()
 {
@@ -57,7 +57,7 @@ void Check_Board::setBoardElementUncombined(const int no)
 // ã‚ªelement‚Æ“¯‚¶ó‘Ô‚©
 bool Check_Board::checkUpper(const int no, const int element) const
 {
-	if (getBoardElement(no - column_size) == element)	return true;
+	if (getBoardElement(no - COLUMN_SIZE) == element)	return true;
 	return false;
 }
 
@@ -71,7 +71,7 @@ bool Check_Board::checkRight(const int no, const int element) const
 // ‰º‚ªelement‚Æ“¯‚¶ó‘Ô‚©
 bool Check_Board::checkLower(const int no, const int element) const
 {
-	if (getBoardElement(no + column_size) == element)	return true;
+	if (getBoardElement(no + COLUMN_SIZE) == element)	return true;
 	return false;
 }
 

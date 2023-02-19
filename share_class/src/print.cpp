@@ -1,4 +1,4 @@
-#include "../include/print.h"
+#include <print.h>
 
 // Œ‹‰Ê•\Ž¦
 void printResult(const Param_Info* pi, const Chain_Info* ci)

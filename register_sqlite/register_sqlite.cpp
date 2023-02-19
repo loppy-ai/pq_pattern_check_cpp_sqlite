@@ -95,7 +95,7 @@ int main()
 // 盤面生成
 void checkBoard(Board* board, int nest_level, int now_trace, int max_trace, int64_t* all_count, sqlite3_stmt* pStmt, sqlite3* db)
 {
-    int end = board_size - (max_trace - now_trace);
+    int end = BOARD_SIZE - (max_trace - now_trace);
     for (int i = nest_level; i < end; ++i) {
         nest_level += 1;
         board->setBoardElement(i, 1);
@@ -111,13 +111,13 @@ void checkBoard(Board* board, int nest_level, int now_trace, int max_trace, int6
                 *all_count += 1;
                 // boardをboard_size数の文字列にする
                 string board_string;
-                for (int j = 0; j < board_size; ++j) {
+                for (int j = 0; j < BOARD_SIZE; ++j) {
                     board_string += to_string(board->getBoardElement(j));
                 }
                 // DB登録
                 sqlite3_bind_int64(pStmt, 1, *all_count);
                 sqlite3_bind_int64(pStmt, 2, max_trace);
-                sqlite3_bind_text(pStmt, 3, board_string.c_str(), board_size, SQLITE_TRANSIENT);
+                sqlite3_bind_text(pStmt, 3, board_string.c_str(), BOARD_SIZE, SQLITE_TRANSIENT);
                 while (sqlite3_step(pStmt) == SQLITE_BUSY) {}
                 sqlite3_reset(pStmt);
                 sqlite3_clear_bindings(pStmt);
@@ -135,13 +135,13 @@ void checkBoard(Board* board, int nest_level, int now_trace, int max_trace, int6
                     }
                     // boardをboard_size数の文字列にする
                     string board_string;
-                    for (int j = 0; j < board_size; ++j) {
+                    for (int j = 0; j < BOARD_SIZE; ++j) {
                         board_string += to_string(board->getBoardElement(j));
                     }
                     // DB登録
                     sqlite3_bind_int64(pStmt, 1, *all_count);
                     sqlite3_bind_int64(pStmt, 2, max_trace);
-                    sqlite3_bind_text(pStmt, 3, board_string.c_str(), board_size, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(pStmt, 3, board_string.c_str(), BOARD_SIZE, SQLITE_TRANSIENT);
                     while (sqlite3_step(pStmt) == SQLITE_BUSY) {}
                     sqlite3_reset(pStmt);
                     sqlite3_clear_bindings(pStmt);
@@ -155,7 +155,7 @@ void checkBoard(Board* board, int nest_level, int now_trace, int max_trace, int6
 // 結合チェック
 bool isConnection(Board* board, const int max_trace)
 {
-    for (int i = 0; i < board_size; ++i) {
+    for (int i = 0; i < BOARD_SIZE; ++i) {
         if (board->getBoardElement(i) == 1) {
             // for文で書いているけど1回しか呼ばれない
             int count = 1;

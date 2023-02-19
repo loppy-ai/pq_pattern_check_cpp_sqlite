@@ -1,4 +1,4 @@
-#include "../include/chain_info.h"
+#include <chain_info.h>
 
 Chain_Info::Chain_Info(const Param_Info* pi, Next* next, Board* board, const Board* trace_pattern_board)
 {
@@ -46,7 +46,7 @@ void Chain_Info::chain(const Param_Info* pi, Next* next, Board* board, const Boa
 #endif	// SW_DISP_RESULT
 
 	// 連鎖数分ループ
-	for (int chain_count = 0; chain_count <= max_num_of_chain; /* no-increment */ ) {
+	for (int chain_count = 0; chain_count <= MAX_NUM_OF_CHAIN; /* no-increment */ ) {
 		// 結合チェック用盤面インスタンスの生成
 		Check_Board check_board;
 		// 結合チェック
@@ -93,7 +93,7 @@ void Chain_Info::chain(const Param_Info* pi, Next* next, Board* board, const Boa
 
 // なぞり消しパターンを適用
 void Chain_Info::applyTracePattern(Board* board, const Board* trace_pattern_board) {
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		if (trace_pattern_board->getBoardElement(i) == 1) {
 			board->setBoardElement(i, Elimination);
 		}
@@ -102,7 +102,7 @@ void Chain_Info::applyTracePattern(Board* board, const Board* trace_pattern_boar
 
 // なぞり消しパターンを適用（しろいマール用）
 void Chain_Info::applyTracePatternBlue(Board* board, const Board* trace_pattern_board) {
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		if (trace_pattern_board->getBoardElement(i) == 1) {
 			board->setBoardElement(i, Blue);
 		}
@@ -111,7 +111,7 @@ void Chain_Info::applyTracePatternBlue(Board* board, const Board* trace_pattern_
 
 // なぞり消しパターンを適用（あたり＆プーボ用）
 void Chain_Info::applyTracePatternYellow(Board* board, const Board* trace_pattern_board) {
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		if (trace_pattern_board->getBoardElement(i) == 1) {
 			board->setBoardElement(i, Yellow);
 		}
@@ -123,23 +123,23 @@ void Chain_Info::dropBoard(Board* board)
 {
 	// 0:なぞったor結合して消えた 9:落ちて消えた
 	// 盤面走査
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		// 0以外は次を見る
-		if (board->getBoardElement(end_of_board - i) != Elimination) {
+		if (board->getBoardElement(END_OF_BOARD - i) != Elimination) {
 			continue;
 		}
 		// 0だったら1つ上を見る
-		for (int target = end_of_board - i - column_size; target >= 0; target -= column_size) {
+		for (int target = END_OF_BOARD - i - COLUMN_SIZE; target >= 0; target -= COLUMN_SIZE) {
 			if (board->getBoardElement(target) != Elimination) {
 				// 1つ上が0以外だったら落として、1つ上を0にする
-				board->setBoardElement(end_of_board - i, board->getBoardElement(target));
+				board->setBoardElement(END_OF_BOARD - i, board->getBoardElement(target));
 				board->setBoardElement(target, Elimination);
 				break;
 			}
 		}
 	}
 	// 落ちて消えたところを9にする
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		if (board->getBoardElement(i) == 0) {
 			board->setBoardElement(i, None);
 		}
@@ -152,13 +152,13 @@ void Chain_Info::checkConnection(const int chain_count, const Param_Info* pi, Bo
 	const int max_connection = pi->getMaxConnection();
 
 	// 色ぷよ以外はチェック済(未結合)にする
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		if (!(board->isColorPuyo(i))) {
 			check_board->setBoardElementUncombined(i);
 		}
 	}
 	// 結合チェック
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		// 確定していたら飛ばす
 		if (check_board->isConfirmed(i)) {
 			continue;
@@ -173,7 +173,7 @@ void Chain_Info::checkConnection(const int chain_count, const Param_Info* pi, Bo
 			// 情報格納
 			setElementCount(board->getBoardElement(i), chain_count, count);
 			setSeparateCount(board->getBoardElement(i), chain_count);
-			for (int j = 0; j < board_size; ++j) {
+			for (int j = 0; j < BOARD_SIZE; ++j) {
 				if (check_board->isChecking(j)) {
 					check_board->setBoardElementCombined(j);
 				}
@@ -181,7 +181,7 @@ void Chain_Info::checkConnection(const int chain_count, const Param_Info* pi, Bo
 		}
 		// 消える数だけ繋がっていなかった場合
 		else {
-			for (int j = 0; j < board_size; ++j) {
+			for (int j = 0; j < BOARD_SIZE; ++j) {
 				if (check_board->isChecking(j)) {
 					check_board->setBoardElementUncombined(j);
 				}
@@ -189,13 +189,13 @@ void Chain_Info::checkConnection(const int chain_count, const Param_Info* pi, Bo
 		}
 	}
 	// 結合していたところの盤面を0にする
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		if (check_board->isCombined(i)) {
 			board->setBoardElement(i, Elimination);
 		}
 	}
 	// 周囲の影響を受けるものの処理
-	for (int i = 0; i < board_size; ++i) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
 		if (board->isInfluenced(i)) {
 			if ((board->canGetUpperRow(i) && check_board->checkUpper(i, Combined))
 				|| (board->canGetRightColumn(i) && check_board->checkRight(i, Combined))
@@ -218,7 +218,7 @@ int Chain_Info::recursionCheckConnection(const int i, Board* board, Check_Board*
 	if (check_board->canGetUpperRow(i)
 		&& check_board->checkUpper(i, NoCheck)
 		&& board->isSameUpper(i)) {
-		count = recursionCheckConnection(i - column_size, board, check_board, count);
+		count = recursionCheckConnection(i - COLUMN_SIZE, board, check_board, count);
 	}
 	// 右がある
 	if (check_board->canGetRightColumn(i)
@@ -230,7 +230,7 @@ int Chain_Info::recursionCheckConnection(const int i, Board* board, Check_Board*
 	if (check_board->canGetLowerRow(i)
 		&& check_board->checkLower(i, NoCheck)
 		&& board->isSameLower(i)) {
-		count = recursionCheckConnection(i + column_size, board, check_board, count);
+		count = recursionCheckConnection(i + COLUMN_SIZE, board, check_board, count);
 	}
 	// 左がある
 	if (check_board->canGetLeftColumn(i)
@@ -260,13 +260,13 @@ void Chain_Info::checkConnectionOther(const int i, const int chain_count, Board*
 bool Chain_Info::dropNext(Next* next, Board* board)
 {
 	bool drop_next_flag = false;
-	for (int i = 0; i < board_size; ++i) {
-		if (!board->isNone(end_of_board - i)) {
+	for (int i = 0; i < BOARD_SIZE; ++i) {
+		if (!board->isNone(END_OF_BOARD - i)) {
 			continue;
 		}
-		if (!next->isNone((end_of_board - i) % column_size)) {
-			board->setBoardElement(end_of_board - i, next->getNextElement((end_of_board - i) % column_size));
-			next->setNextElement((end_of_board - i) % column_size, None);
+		if (!next->isNone((END_OF_BOARD - i) % COLUMN_SIZE)) {
+			board->setBoardElement(END_OF_BOARD - i, next->getNextElement((END_OF_BOARD - i) % COLUMN_SIZE));
+			next->setNextElement((END_OF_BOARD - i) % COLUMN_SIZE, None);
 			drop_next_flag = true;
 		}
 	}

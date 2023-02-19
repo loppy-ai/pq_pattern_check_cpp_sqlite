@@ -3,7 +3,7 @@
 #include <string>
 #include <size.h>
 
-constexpr double basic_chain_coefficient[max_num_of_chain] = { 0, 0.4, 0.7, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4 };
+constexpr double basic_chain_coefficient[MAX_NUM_OF_CHAIN] = { 0, 0.4, 0.7, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4 };
 
 class Param_Info
 {
@@ -17,7 +17,7 @@ private:
 	int max_connection;					// 最大結合数
 	bool max_trace_print_flag;			// 最大なぞり消し数表示フラグ
 	bool process_print_flag;			// 連鎖過程表示フラグ
-	double chain_coefficient_list_entity[max_num_of_chain] = { 0.0 };	// 連鎖係数リストの実体
+	double chain_coefficient_list_entity[MAX_NUM_OF_CHAIN] = { 0.0 };	// 連鎖係数リストの実体
 	double *chain_coefficient_list;										// 連鎖係数リストのアドレス
 	void setChainCoefficientList();
 

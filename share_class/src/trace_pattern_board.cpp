@@ -1,4 +1,4 @@
-#include "../include/trace_pattern_board.h"
+#include <trace_pattern_board.h>
 
 Trace_Pattern_Board::Trace_Pattern_Board(const std::string file_name)
 {
@@ -34,22 +34,22 @@ void Trace_Pattern_Board::readFromStream(std::istream& is)
         if (line.length() > 0 && line[0] == '#') {
             continue;
         }
-        if (line.length() != column_size && !error_flag) {
+        if (line.length() != COLUMN_SIZE && !error_flag) {
             std::cout << "Error : なぞり消しパターンファイルの列数が違います" << std::endl;
             std::cout << std::endl;
             error_flag = true;
         }
         else {
-            for (i = 0; i < column_size; ++i) {
-                setBoardElement(line_count * column_size + i, line[i] - 48);
+            for (i = 0; i < COLUMN_SIZE; ++i) {
+                setBoardElement(line_count * COLUMN_SIZE + i, line[i] - 48);
             }
             line_count++;
-            if (line_count == row_size) {
+            if (line_count == ROW_SIZE) {
                 break;
             }
         }
     }
-    if (line_count != row_size && !error_flag) {
+    if (line_count != ROW_SIZE && !error_flag) {
         std::cout << "Error : なぞり消しパターンファイルの行数が違います" << std::endl;
         std::cout << std::endl;
         error_flag = true;

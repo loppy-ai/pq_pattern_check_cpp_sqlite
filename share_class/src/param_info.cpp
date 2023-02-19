@@ -1,5 +1,5 @@
-#include "../include/param_info.h"
-#include "../include/param.h"
+#include <param_info.h>
+#include <param.h>
 
 Param_Info::Param_Info(char** argv)
 {
@@ -94,7 +94,7 @@ double Param_Info::getChainMagnification(const int chain_count, const double cha
 // ˜A½ŒW”‚ğƒŠƒXƒg‚Æ‚µ‚Äİ’è
 void Param_Info::setChainCoefficientList()
 {
-    for (int i = 0; i < max_num_of_chain; ++i) {
+    for (int i = 0; i < MAX_NUM_OF_CHAIN; ++i) {
         chain_coefficient_list_entity[i] = 1 + basic_chain_coefficient[i] * getChainCoefficient();
     }
 }

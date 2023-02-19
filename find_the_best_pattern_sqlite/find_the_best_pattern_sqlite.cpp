@@ -89,7 +89,7 @@ int main(int argc, char** argv)
             const unsigned char* board = sqlite3_column_text(pStmt, 0);
             // なぞり消し盤面設定
             Board tpb;
-            for (int j = 0; j < board_size; ++j) {
+            for (int j = 0; j < BOARD_SIZE; ++j) {
                 tpb.setBoardElement(j, board[j] - 48);   // '0' to 0
             }
             // 初期盤面設定
@@ -178,16 +178,16 @@ int main(int argc, char** argv)
         Fixed_Board fboard(pi.getBoardPattern());
         Chain_Info ci(&pi, &fnext, &fboard, &(now_max_board[i]));
         outputfile << "--------------------倍率" << i + 1 << "位--------------------" << "\n";
-        for (int j = 0; j < row_size; ++j) {
+        for (int j = 0; j < ROW_SIZE; ++j) {
             outputfile
-                << now_max_board[i].getBoardElement(j * column_size)
-                << now_max_board[i].getBoardElement(j * column_size + 1)
-                << now_max_board[i].getBoardElement(j * column_size + 2)
-                << now_max_board[i].getBoardElement(j * column_size + 3)
-                << now_max_board[i].getBoardElement(j * column_size + 4)
-                << now_max_board[i].getBoardElement(j * column_size + 5)
-                << now_max_board[i].getBoardElement(j * column_size + 6)
-                << now_max_board[i].getBoardElement(j * column_size + 7) << "\n";
+                << now_max_board[i].getBoardElement(j * COLUMN_SIZE)
+                << now_max_board[i].getBoardElement(j * COLUMN_SIZE + 1)
+                << now_max_board[i].getBoardElement(j * COLUMN_SIZE + 2)
+                << now_max_board[i].getBoardElement(j * COLUMN_SIZE + 3)
+                << now_max_board[i].getBoardElement(j * COLUMN_SIZE + 4)
+                << now_max_board[i].getBoardElement(j * COLUMN_SIZE + 5)
+                << now_max_board[i].getBoardElement(j * COLUMN_SIZE + 6)
+                << now_max_board[i].getBoardElement(j * COLUMN_SIZE + 7) << "\n";
         }
         outputfile << "\n";
         outputfile << "-----------------------------------------" << "\n";

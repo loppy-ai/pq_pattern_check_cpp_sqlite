@@ -1,4 +1,4 @@
-#include "../include/next.h"
+#include <next.h>
 
 Next::Next()
 {
@@ -13,7 +13,7 @@ Next::~Next()
 // ネクスト全てをある色に設定
 void Next::setNext(const int* input_next)
 {
-	std::memcpy(next, input_next, next_size * 4);	// int:4byte
+	std::memcpy(next, input_next, NEXT_SIZE * 4);	// int:4byte
 }
 
 // ネクストの要素を取得
@@ -38,8 +38,8 @@ bool Next::isNone(const int no) const
 // 盤面表示
 void Next::print() const
 {
-	std::string str_next[column_size];
-	for (int i = 0; i < column_size; ++i) {
+	std::string str_next[COLUMN_SIZE];
+	for (int i = 0; i < COLUMN_SIZE; ++i) {
 		if (getNextElement(i) == None) {
 			str_next[i] = ".";
 		}
