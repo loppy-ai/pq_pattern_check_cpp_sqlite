@@ -1,4 +1,4 @@
-#include <fixed_board.h>
+#include "fixed_board.h"
 
 Fixed_Board::Fixed_Board(const int board_pattern)
 {
@@ -38,6 +38,22 @@ void Fixed_Board::setFixedBoard(const int board_pattern)
 	case 114:	setBoard(board_pattern_114);	break;
 	case 115:	setBoard(board_pattern_115);	break;
 	case 116:	setBoard(board_pattern_116);	break;
+	case 151:	setBoard(board_pattern_151);	break;
+	case 152:	setBoard(board_pattern_152);	break;
+	case 153:	setBoard(board_pattern_153);	break;
+	case 154:	setBoard(board_pattern_154);	break;
+	case 155:	setBoard(board_pattern_155);	break;
+	case 156:	setBoard(board_pattern_156);	break;
+	case 157:	setBoard(board_pattern_157);	break;
+	case 158:	setBoard(board_pattern_158);	break;
+	case 159:	setBoard(board_pattern_159);	break;
+	case 160:	setBoard(board_pattern_160);	break;
+	case 161:	setBoard(board_pattern_161);	break;
+	case 162:	setBoard(board_pattern_162);	break;
+	case 163:	setBoard(board_pattern_163);	break;
+	case 164:	setBoard(board_pattern_164);	break;
+	case 165:	setBoard(board_pattern_165);	break;
+	case 166:	setBoard(board_pattern_166);	break;
 	case 201:	setBoard(board_pattern_201);	break;
 	case 202:	setBoard(board_pattern_202);	break;
 	case 203:	setBoard(board_pattern_203);	break;
