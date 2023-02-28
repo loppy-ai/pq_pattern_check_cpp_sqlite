@@ -34,7 +34,7 @@ private:
 	void applyTracePatternYellow(Board*, const Board*);
 	void dropBoard(Board*);
 	void checkConnection(const int, const Param_Info*, Board*, Check_Board*);
-	int recursionCheckConnection(const int, Board*, Check_Board*, int);
+	void recursionCheckConnection(const int, Board*, Check_Board*, int*);
 	void checkConnectionOther(const int, const int, Board*);
 	bool dropNext(Next*, Board*);
 

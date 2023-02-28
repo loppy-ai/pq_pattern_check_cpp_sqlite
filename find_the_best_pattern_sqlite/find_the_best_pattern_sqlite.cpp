@@ -10,6 +10,7 @@
 #include <chain_info.h>
 #include <print.h>
 #include <size.h>
+#include <bitset>
 
 constexpr long long frequency = 16777216;
 
@@ -27,7 +28,8 @@ int main(int argc, char** argv)
 
     sqlite3* db = NULL;
     sqlite3_stmt* pStmt;
-    const char* path = "E:\\sqlite\\tp.sqlite3";
+    // const char* path = "E:\\sqlite\\tp.sqlite3";
+    const char* path = "C:\\sqlite\\tp_int64.sqlite3";
     int ret;
 
     // DB接続
@@ -40,7 +42,7 @@ int main(int argc, char** argv)
 
     // 接続状態確認
     if (ret == SQLITE_OK) {
-        printf("Connecttion Success!\n");
+        printf("Connection Success!\n");
     }
     else {
         printf("Connection Failed...\n");
@@ -86,12 +88,14 @@ int main(int argc, char** argv)
 
         while (sqlite3_step(pStmt) == SQLITE_ROW) {
             // 48文字のデータ
-            const unsigned char* board = sqlite3_column_text(pStmt, 0);
+            long long board = sqlite3_column_int64(pStmt, 0);
+            bitset<BOARD_SIZE> bs(board);
             // なぞり消し盤面設定
             Board tpb;
             for (int j = 0; j < BOARD_SIZE; ++j) {
-                tpb.setBoardElement(j, board[j] - 48);   // '0' to 0
+                tpb.setBoardElement(j, bs[j]);
             }
+
             // 初期盤面設定
             Fixed_Next fnext(pi.getNextColor());
             Fixed_Board fboard(pi.getBoardPattern());

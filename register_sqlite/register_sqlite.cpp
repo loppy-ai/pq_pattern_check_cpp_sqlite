@@ -39,7 +39,7 @@ int main()
 
     // 接続状態確認
     if (ret == SQLITE_OK) {
-        printf("Connecttion Success!\n");
+        printf("Connection Success!\n");
     }
     else {
         printf("Connection Failed...\n");
@@ -60,7 +60,7 @@ int main()
 
     sqlite3_prepare_v2(
         db,
-        "INSERT INTO pattern(id, trace, board) VALUES(?, ?, ?);",
+        "INSERT INTO pattern(id, board) VALUES(?, ?);",
         -1,
         &pStmt,
         nullptr
@@ -109,15 +109,15 @@ void checkBoard(Board* board, int nest_level, int now_trace, int max_trace, int6
             if (max_trace == 1) {
                 // 1の時だけは結合チェックが不要
                 *all_count += 1;
-                // boardをboard_size数の文字列にする
-                string board_string;
+                long long trace = 0;
                 for (int j = 0; j < BOARD_SIZE; ++j) {
-                    board_string += to_string(board->getBoardElement(j));
+                    if (board->getBoardElement(j) == 1) {
+                        trace += (long long)pow(2, END_OF_BOARD - j);
+                    }
                 }
                 // DB登録
                 sqlite3_bind_int64(pStmt, 1, *all_count);
-                sqlite3_bind_int64(pStmt, 2, max_trace);
-                sqlite3_bind_text(pStmt, 3, board_string.c_str(), BOARD_SIZE, SQLITE_TRANSIENT);
+                sqlite3_bind_int64(pStmt, 2, trace);
                 while (sqlite3_step(pStmt) == SQLITE_BUSY) {}
                 sqlite3_reset(pStmt);
                 sqlite3_clear_bindings(pStmt);
@@ -133,15 +133,15 @@ void checkBoard(Board* board, int nest_level, int now_trace, int max_trace, int6
                         // 再度トランザクション開始
                         sqlite3_exec(db, "BEGIN TRANSACTION", 0, 0, 0);
                     }
-                    // boardをboard_size数の文字列にする
-                    string board_string;
+                    long long trace = 0;
                     for (int j = 0; j < BOARD_SIZE; ++j) {
-                        board_string += to_string(board->getBoardElement(j));
+                        if (board->getBoardElement(j) == 1) {
+                            trace += (long long)pow(2, END_OF_BOARD - j);
+                        }
                     }
                     // DB登録
                     sqlite3_bind_int64(pStmt, 1, *all_count);
-                    sqlite3_bind_int64(pStmt, 2, max_trace);
-                    sqlite3_bind_text(pStmt, 3, board_string.c_str(), BOARD_SIZE, SQLITE_TRANSIENT);
+                    sqlite3_bind_int64(pStmt, 2, trace);
                     while (sqlite3_step(pStmt) == SQLITE_BUSY) {}
                     sqlite3_reset(pStmt);
                     sqlite3_clear_bindings(pStmt);

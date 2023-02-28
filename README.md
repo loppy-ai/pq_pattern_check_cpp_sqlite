@@ -12,14 +12,14 @@
 1. Precompiled Binaries for Windowsからlibを作成
 1. register_sqliteプロジェクトに、Alternative Source Code Formatsのsqlite3.cppを追加
 1. プロジェクトと同じ階層にsqlite3ディレクトリを作成し、DLしたファイルすべてを格納
-1. プロジェクトと同じ階層にあるNODATA_tp.sqlite3を任意の場所にコピーし、適当な名前にリネーム
+1. プロジェクトと同じ階層にあるNODATA_tp_int64.sqlite3を任意の場所にコピーし、適当な名前にリネーム
 1. register_sqlite.cpp main()内の変数pathを、上記のファイルを指すように変更
 1. 必要に応じて最大なぞり消し数を変更
 1. releaseビルドを実行
 1. register_sqlite.exeを実行
 
 ### 注意
-- DBのファイルサイズは最大なぞり消し数15個で **1TB** 弱になります
+- DBのファイルサイズは最大なぞり消し数15個で **300GB** 弱になります
 - 実行時間は（CPUの性能にもよりますが）24時間以上かかる場合があります
 
 ---

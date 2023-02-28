@@ -11,10 +11,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "register_sqlite", "register
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "share_class", "share_class\share_class.vcxitems", "{7B636CBA-F226-449D-AE8A-C4731B40ED60}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "find_the_best_pattern_from_indefinite_next", "find_the_best_pattern_from_indefinite_next\find_the_best_pattern_from_indefinite_next.vcxproj", "{48F4DB84-4154-4316-9DA5-AAF5258E92B3}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "register_next_sqlite", "register_next_sqlite\register_next_sqlite.vcxproj", "{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -47,22 +43,6 @@ Global
 		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Release|x64.Build.0 = Release|x64
 		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Release|x86.ActiveCfg = Release|Win32
 		{9905BAE8-3C90-4553-86E0-0EFDE6C77863}.Release|x86.Build.0 = Release|Win32
-		{48F4DB84-4154-4316-9DA5-AAF5258E92B3}.Debug|x64.ActiveCfg = Debug|x64
-		{48F4DB84-4154-4316-9DA5-AAF5258E92B3}.Debug|x64.Build.0 = Debug|x64
-		{48F4DB84-4154-4316-9DA5-AAF5258E92B3}.Debug|x86.ActiveCfg = Debug|Win32
-		{48F4DB84-4154-4316-9DA5-AAF5258E92B3}.Debug|x86.Build.0 = Debug|Win32
-		{48F4DB84-4154-4316-9DA5-AAF5258E92B3}.Release|x64.ActiveCfg = Release|x64
-		{48F4DB84-4154-4316-9DA5-AAF5258E92B3}.Release|x64.Build.0 = Release|x64
-		{48F4DB84-4154-4316-9DA5-AAF5258E92B3}.Release|x86.ActiveCfg = Release|Win32
-		{48F4DB84-4154-4316-9DA5-AAF5258E92B3}.Release|x86.Build.0 = Release|Win32
-		{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}.Debug|x64.ActiveCfg = Debug|x64
-		{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}.Debug|x64.Build.0 = Debug|x64
-		{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}.Debug|x86.ActiveCfg = Debug|Win32
-		{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}.Debug|x86.Build.0 = Debug|Win32
-		{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}.Release|x64.ActiveCfg = Release|x64
-		{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}.Release|x64.Build.0 = Release|x64
-		{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}.Release|x86.ActiveCfg = Release|Win32
-		{72E85E2D-419C-4CA0-B4B4-B3B58874CAFB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

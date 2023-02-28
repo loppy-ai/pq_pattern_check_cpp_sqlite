@@ -166,7 +166,7 @@ void Chain_Info::checkConnection(const int chain_count, const Param_Info* pi, Bo
 		// 結合数
 		int count = 0;
 		// 再帰結合チェック
-		count = recursionCheckConnection(i, board, check_board, count);
+		recursionCheckConnection(i, board, check_board, &count);
 		// i番目のぷよは何個繋がっているかが返ってくる
 		// 消える数だけ繋がっている場合
 		if (count >= pi->getMaxConnection()) {
@@ -208,37 +208,36 @@ void Chain_Info::checkConnection(const int chain_count, const Param_Info* pi, Bo
 }
 
 // 結合チェック（再帰用）
-int Chain_Info::recursionCheckConnection(const int i, Board* board, Check_Board* check_board, int count)
+void Chain_Info::recursionCheckConnection(const int i, Board* board, Check_Board* check_board, int* count)
 {
 	// 確認中
 	check_board->setBoardElementChecking(i);
 	// 結合カウント+1
-	++count;
+	++(*count);
 	// 上がある
 	if (check_board->canGetUpperRow(i)
 		&& check_board->checkUpper(i, NoCheck)
 		&& board->isSameUpper(i)) {
-		count = recursionCheckConnection(i - COLUMN_SIZE, board, check_board, count);
+		recursionCheckConnection(i - COLUMN_SIZE, board, check_board, count);
 	}
 	// 右がある
 	if (check_board->canGetRightColumn(i)
 		&& check_board->checkRight(i, NoCheck)
 		&& board->isSameRight(i)) {
-		count = recursionCheckConnection(i + 1, board, check_board, count);
+		recursionCheckConnection(i + 1, board, check_board, count);
 	}
 	// 下がある
 	if (check_board->canGetLowerRow(i)
 		&& check_board->checkLower(i, NoCheck)
 		&& board->isSameLower(i)) {
-		count = recursionCheckConnection(i + COLUMN_SIZE, board, check_board, count);
+		recursionCheckConnection(i + COLUMN_SIZE, board, check_board, count);
 	}
 	// 左がある
 	if (check_board->canGetLeftColumn(i)
 		&& check_board->checkLeft(i, NoCheck)
 		&& board->isSameLeft(i)) {
-		count = recursionCheckConnection(i - 1, board, check_board, count);
+		recursionCheckConnection(i - 1, board, check_board, count);
 	}
-	return count;
 }
 
 // 巻き込まれて消えるものの処理
@@ -460,7 +459,8 @@ int Chain_Info::getElementCountPerChain(const int chain_count) const
 		+ getElementCountPerColorAndChain(Yellow, chain_count)
 		+ getElementCountPerColorAndChain(Purple, chain_count)
 		+ getElementCountPerColorAndChain(Ojama, chain_count)
-		+ getElementCountPerColorAndChain(Kata, chain_count);
+		+ getElementCountPerColorAndChain(Kata, chain_count)
+		+ getElementCountPerColorAndChain(Prism, chain_count);
 }
 
 // ある色の合計倍率を取得
