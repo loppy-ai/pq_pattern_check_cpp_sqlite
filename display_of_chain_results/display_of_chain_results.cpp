@@ -8,7 +8,7 @@
 int main()
 {
     // パラメータ設定ファイル読み込み
-    Param_Info pi("param_config.cfg");
+    Param_Info pi("param_config.cfg", DISPLAY);
     pi.print();
 
     // なぞり消しパターンファイル読み込み

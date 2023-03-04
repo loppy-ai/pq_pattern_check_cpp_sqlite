@@ -14,24 +14,48 @@
 #include <thread>
 
 constexpr int thread_count = 24;
-long long result_board[thread_count] = {0};
-double result_magnification[thread_count] = {0.0};
+long long result_board[thread_count] = { 0 };
+double result_magnification[thread_count] = { 0.0 };
 
 void search(int, long long, long long, Param_Info*);
 long long getTracePatternSize(const int);
 
 int main(int argc, char** argv)
 {
+    int c, board_no;
+    int next[NEXT_SIZE] = { 0 };
+    string s;
+
+    // ネクスト指定読み込み
+    cout << "ネクスト8個の色を入力してください..." << endl;
+    for (int i = 0; i < NEXT_SIZE && (c = getchar()) != '\n'; ++i) {
+        next[i] = (int)c - 48;
+        if (!(next[i] > 0 && next[i] < 6)) {
+            cout << "ネクストの指定に誤りがあります。" << endl;
+            system("pause");
+            exit(0);
+        }
+    }
+
+    // 盤面指定読み込み
+    cout << "盤面番号を入力してください..." << endl;
+    cin >> s;
+    board_no = atoi(s.c_str());
+
     // パラメータ設定読み込み
-    Param_Info pi(argv);
+    Param_Info pi("any_next_config.cfg", ANY_NEXT);
+    pi.setNextColorAny(next);
+    pi.setBoardPattern(board_no);
+    pi.setChainCoefficient(board_no);
     long long trace_pattern_count = getTracePatternSize(pi.getMaxTrace());          // なぞり消しパターンの総数
     long long split_arr[thread_count + 1] = { 0 };
     double page = (double)trace_pattern_count / thread_count;
     for (int i = 1; i <= thread_count; ++i) {
         split_arr[i] = (long long)(page * i);
     }
-
-    pi.print(); // ---設定情報---
+    
+    // 設定表示
+    pi.print();
     clock_t start_time = clock();
 
     // マルチスレッド処理としてsearch()を呼び出す
@@ -60,21 +84,8 @@ int main(int argc, char** argv)
     cout << "処理時間 : " << time << endl;
     cout << endl;
 
-    // ファイル出力
-    stringstream file_name_stream;
-    file_name_stream << pi.getNextColor() << "_" << pi.getBoardPattern() << "_" << pi.getMaxTrace() << "_" << pi.getEliminationCoefficient() << "_" << pi.getChainCoefficient() << "_" << pi.getMaxColor() << ".txt";
-
-    ofstream outputfile(file_name_stream.str());
-    outputfile << "ネクストの色       : " << pi.getNextColor() << "\n";
-    outputfile << "盤面パターン       : " << pi.getBoardPattern() << "\n";
-    outputfile << "最大なぞり消し数   : " << pi.getMaxTrace() << "\n";
-    outputfile << "同時消し係数       : " << pi.getEliminationCoefficient() << "\n";
-    outputfile << "連鎖係数           : " << pi.getChainCoefficient() << "\n";
-    outputfile << "求めたい色         : " << pi.getMaxColor() << "\n";
-    outputfile << "消える時の結合数   : " << pi.getMaxConnection() << "\n";
-    outputfile << "\n";
     // 結果表示のためにもう一度計算
-    Fixed_Next fnext(pi.getNextColor());
+    Fixed_Next fnext(pi.getNextColorAny());
     Fixed_Board fboard(pi.getBoardPattern());
     bitset<BOARD_SIZE> bs(all_max_board);
     // なぞり消し盤面設定
@@ -82,34 +93,22 @@ int main(int argc, char** argv)
     for (int j = 0; j < BOARD_SIZE; ++j) {
         all_max_tpb.setBoardElement(j, bs[j]);
     }
+    cout << "-----------------なぞり方-----------------" << endl;
+    all_max_tpb.print();
+    cout << "------------------------------------------" << endl;
+    cout << endl;
     Chain_Info ci(&pi, &fnext, &fboard, &all_max_tpb);
-    for (int j = 0; j < ROW_SIZE; ++j) {
-        outputfile
-            << all_max_tpb.getBoardElement(j * COLUMN_SIZE)
-            << all_max_tpb.getBoardElement(j * COLUMN_SIZE + 1)
-            << all_max_tpb.getBoardElement(j * COLUMN_SIZE + 2)
-            << all_max_tpb.getBoardElement(j * COLUMN_SIZE + 3)
-            << all_max_tpb.getBoardElement(j * COLUMN_SIZE + 4)
-            << all_max_tpb.getBoardElement(j * COLUMN_SIZE + 5)
-            << all_max_tpb.getBoardElement(j * COLUMN_SIZE + 6)
-            << all_max_tpb.getBoardElement(j * COLUMN_SIZE + 7) << "\n";
-    }
-    outputfile << "\n";
-    outputfile << "-----------------------------------------" << "\n";
-    outputfile << "|   色   |消去数|  倍率  |  発生値倍率  |" << "\n";
-    outputfile << "-----------------------------------------" << "\n";
-    outputfile << "|   赤   |" << right << setw(6) << ci.getElementCountPerColor(Red) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Red) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Red) * 6.0 << "(x6.0)|" << "\n";
-    outputfile << "|   青   |" << right << setw(6) << ci.getElementCountPerColor(Blue) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Blue) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Blue) * 6.2 << "(x6.2)|" << "\n";
-    outputfile << "|   緑   |" << right << setw(6) << ci.getElementCountPerColor(Green) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Green) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Green) * 4.5 << "(x4.5)|" << "\n";
-    outputfile << "|   黄   |" << right << setw(6) << ci.getElementCountPerColor(Yellow) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Yellow) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Yellow) * 5.5 << "(x5.5)|" << "\n";
-    outputfile << "|   紫   |" << right << setw(6) << ci.getElementCountPerColor(Purple) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Purple) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Purple) * 5.5 << "(x5.5)|" << "\n";
-    outputfile << "|ワイルド| ---- |" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, None) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, None) * 2.2 << "(x2.2)|" << "\n";
-    outputfile << "-----------------------------------------" << "\n";
-    outputfile << "\n";
-
-    outputfile << "処理時間(s) : " << time;
-    outputfile << "\n";
-    outputfile.close();
+    cout << "------------------------------------------" << endl;
+    cout << "|   色   |消去数|  倍率  |   発生値倍率  |" << endl;
+    cout << "------------------------------------------" << endl;
+    cout << "|   赤   |" << right << setw(6) << ci.getElementCountPerColor(Red) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Red) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Red) * 6.0 << "(x 6.0)|" << endl;
+    cout << "|   青   |" << right << setw(6) << ci.getElementCountPerColor(Blue) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Blue) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Blue) * 6.2 << "(x 6.2)|" << endl;
+    cout << "|   緑   |" << right << setw(6) << ci.getElementCountPerColor(Green) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Green) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Green) * 4.5 << "(x 4.5)|" << endl;
+    cout << "|   黄   |" << right << setw(6) << ci.getElementCountPerColor(Yellow) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Yellow) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Yellow) * 5.5 << "(x 5.5)|" << endl;
+    cout << "|   紫   |" << right << setw(6) << ci.getElementCountPerColor(Purple) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Purple) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, Purple) * 5.5 << "(x 5.5)|" << endl;
+    cout << "|ワイルド| ---- |" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, None) << "|" << right << setw(8) << fixed << setprecision(2) << ci.getMagnificationPerColor(&pi, None) * 10.5 << "(x10.5)|" << endl;
+    cout << "------------------------------------------" << endl;
+    system("pause");
 }
 
 void search(int ThreadID, long long page, long long offset, Param_Info* pi)
@@ -153,7 +152,7 @@ void search(int ThreadID, long long page, long long offset, Param_Info* pi)
         }
 
         // 初期盤面設定
-        Fixed_Next fnext(pi->getNextColor());
+        Fixed_Next fnext(pi->getNextColorAny());
         Fixed_Board fboard(pi->getBoardPattern());
         // 連鎖情報生成
         Chain_Info ci(pi, &fnext, &fboard, &tpb);

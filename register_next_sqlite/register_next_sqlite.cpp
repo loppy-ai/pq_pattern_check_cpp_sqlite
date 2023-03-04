@@ -13,7 +13,7 @@ int main()
     int all_count = 0;
     sqlite3* db = NULL;
     sqlite3_stmt* pStmt;
-    const char* path = "E:\\sqlite\\no_next_result.sqlite3";  //E:\\sqlite\\no_next_result.sqlite3
+    const char* path = "";  //E:\\sqlite\\no_next_result.sqlite3
     int ret;
 
     // 接続
@@ -25,7 +25,7 @@ int main()
     );
     // 接続状態確認
     if (ret == SQLITE_OK) {
-        printf("Connecttion Success!\n");
+        printf("Connection Success!\n");
     }
     else {
         printf("Connection Failed...\n");

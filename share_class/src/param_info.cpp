@@ -12,24 +12,47 @@ Param_Info::Param_Info(char** argv)
     max_connection          = (board_pattern < 100) ? 3 : 4;
     process_print_flag      = false;
     max_trace_print_flag    = true;
+    next_color_print_flag   = true;
     chain_coefficient_list  = chain_coefficient_list_entity;
     setChainCoefficientList();
 }
 
-Param_Info::Param_Info(const std::string file_name)
+Param_Info::Param_Info(const string file_name, Caller caller)
 {
     param::parameter param(file_name);
-    next_color              = param.get<int>("next_color");
-    board_pattern           = param.get<int>("board_pattern");
-    max_trace               = 0;
-    elimination_coefficient = param.get<double>("elimination_coefficient");
-    chain_coefficient       = param.get<double>("chain_coefficient");
-    max_color               = 0;
-    max_connection          = (board_pattern < 100) ? 3 : 4;
-    process_print_flag      = param.get<bool>("process_print_flag");
-    max_trace_print_flag    = false;
-    chain_coefficient_list  = chain_coefficient_list_entity;
-    setChainCoefficientList();
+    switch (caller)
+    {
+    case DISPLAY:
+        next_color = param.get<int>("next_color");
+        board_pattern = param.get<int>("board_pattern");
+        max_trace = 0;
+        elimination_coefficient = param.get<double>("elimination_coefficient");
+        chain_coefficient = param.get<double>("chain_coefficient");
+        max_color = 0;
+        max_connection = (board_pattern < 100) ? 3 : 4;
+        process_print_flag = param.get<bool>("process_print_flag");
+        max_trace_print_flag = false;
+        next_color_print_flag = true;
+        chain_coefficient_list = chain_coefficient_list_entity;
+        setChainCoefficientList();
+        break;
+    case ANY_NEXT:
+        next_color = 0;
+        max_trace = param.get<int>("max_trace");
+        board_pattern = 0;
+        elimination_coefficient = param.get<double>("elimination_coefficient");
+        chain_coefficient = 0.0;
+        max_color = param.get<int>("max_color");
+        max_connection = (board_pattern < 100) ? 3 : 4;
+        process_print_flag = false;
+        max_trace_print_flag = true;
+        next_color_print_flag = false;
+        chain_coefficient_list = chain_coefficient_list_entity;
+        next_color_any = next_color_any_entity;
+        break;
+    default:
+        break;
+    }
 }
 
 Param_Info::~Param_Info()
@@ -41,6 +64,12 @@ Param_Info::~Param_Info()
 int Param_Info::getNextColor() const
 {
     return next_color;
+}
+
+// 盤面パターンを設定
+void Param_Info::setBoardPattern(const int no)
+{
+    board_pattern = no;
 }
 
 // 盤面パターンを取得
@@ -59,6 +88,24 @@ int Param_Info::getMaxTrace() const
 double Param_Info::getEliminationCoefficient() const
 {
     return elimination_coefficient;
+}
+
+// 連鎖係数倍率を設定
+void Param_Info::setChainCoefficient(const int no)
+{
+    if (no < 10) {
+        // あんどうりんご・スペエコ
+        chain_coefficient = 7.0;
+    }
+    else if (no > 200 && no < 210) {
+        // しろいマール
+        chain_coefficient = 10.0;
+    }
+    else if (no > 300 && no < 310) {
+        // あたり＆プーボ
+        chain_coefficient = 10.5;
+    }
+    setChainCoefficientList();
 }
 
 // 連鎖係数倍率を取得
@@ -91,6 +138,20 @@ double Param_Info::getChainMagnification(const int chain_count, const double cha
     return 1 + basic_chain_coefficient[chain_count] * chain_coefficient;
 }
 
+// 任意ネクストを設定
+void Param_Info::setNextColorAny(const int* next)
+{
+    for (int i = 0; i < NEXT_SIZE; ++i) {
+        next_color_any_entity[i] = next[i];
+    }
+}
+
+// 設定された任意ネクストの色を取得
+int* Param_Info::getNextColorAny() const
+{
+    return next_color_any;
+}
+
 // 連鎖係数をリストとして設定
 void Param_Info::setChainCoefficientList()
 {
@@ -108,18 +169,33 @@ bool Param_Info::isProcessPrint() const
 // 情報表示
 void Param_Info::print() const
 {
-    std::string ipp = isProcessPrint() ? "表示する" : "表示しない";
-    std::cout << "---------------------設定情報---------------------" << std::endl;
-    std::cout << "ネクストの色       : " << getNextColor() << std::endl;
-    std::cout << "盤面パターン       : " << getBoardPattern() << std::endl;
-    if (max_trace_print_flag) {
-        std::cout << "最大なぞり消し数   : " << getMaxTrace() << std::endl;
+    string ipp = isProcessPrint() ? "表示する" : "表示しない";
+    cout << "-----------------設定情報-----------------" << endl;
+    if (next_color_print_flag) {
+        cout << "ネクストの色       : " << getNextColor() << endl;
     }
-    std::cout << "同時消し係数       : " << getEliminationCoefficient() << std::endl;
-    std::cout << "連鎖係数           : " << getChainCoefficient() << std::endl;
-    if (max_trace_print_flag) {
-        std::cout << "求めたい色         : " << getMaxColor() << std::endl;
+    else {
+        cout << "入力したネクスト   : " << 
+            next_color_any_entity[0] << 
+            next_color_any_entity[1] << 
+            next_color_any_entity[2] << 
+            next_color_any_entity[3] << 
+            next_color_any_entity[4] << 
+            next_color_any_entity[5] <<
+            next_color_any_entity[6] <<
+            next_color_any_entity[7] << 
+            endl;
     }
-    std::cout << "消える時の結合数   : " << getMaxConnection() << std::endl;
-    std::cout << "連鎖過程の表示     : " << ipp << std::endl;
+    cout << "盤面パターン       : " << getBoardPattern() << endl;
+    if (max_trace_print_flag) {
+        cout << "最大なぞり消し数   : " << getMaxTrace() << endl;
+    }
+    cout << "同時消し係数       : " << getEliminationCoefficient() << endl;
+    cout << "連鎖係数           : " << getChainCoefficient() << endl;
+    if (max_trace_print_flag) {
+        cout << "求めたい色         : " << getMaxColor() << endl;
+    }
+    cout << "消える時の結合数   : " << getMaxConnection() << endl;
+    cout << "連鎖過程の表示     : " << ipp << endl;
+    cout << "------------------------------------------" << endl;
 }

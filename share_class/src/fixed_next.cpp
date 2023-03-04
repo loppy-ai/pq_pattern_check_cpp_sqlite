@@ -5,6 +5,11 @@ Fixed_Next::Fixed_Next(const int next_color)
 	setFixedNext(next_color);
 }
 
+Fixed_Next::Fixed_Next(int* next_color_any)
+{
+	setFixedNext(next_color_any);
+}
+
 Fixed_Next::~Fixed_Next()
 {
 
@@ -25,5 +30,13 @@ void Fixed_Next::setFixedNext(const int next_color)
 		std::cout << std::endl;
 		exit(1);
 		break;
+	}
+}
+
+// 任意ネクストをセット
+void Fixed_Next::setFixedNext(int* next_color_any)
+{
+	for (int i = 0; i < NEXT_SIZE; ++i) {
+		setNextElement(i, next_color_any[i]);
 	}
 }

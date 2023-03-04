@@ -14,8 +14,10 @@ class Fixed_Next : public Next
 {
 private:
 	void setFixedNext(const int);
+	void setFixedNext(int*);
 
 public:
 	Fixed_Next(const int);
+	Fixed_Next(int*);
 	~Fixed_Next();
 };
