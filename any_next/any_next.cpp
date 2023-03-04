@@ -13,9 +13,8 @@
 #include <bitset>
 #include <thread>
 
-constexpr int thread_count = 24;
-long long result_board[thread_count] = { 0 };
-double result_magnification[thread_count] = { 0.0 };
+long long result_board[THREAD_COUNT] = { 0 };
+double result_magnification[THREAD_COUNT] = { 0.0 };
 
 void search(int, long long, long long, Param_Info*);
 long long getTracePatternSize(const int);
@@ -48,9 +47,9 @@ int main(int argc, char** argv)
     pi.setBoardPattern(board_no);
     pi.setChainCoefficient(board_no);
     long long trace_pattern_count = getTracePatternSize(pi.getMaxTrace());          // なぞり消しパターンの総数
-    long long split_arr[thread_count + 1] = { 0 };
-    double page = (double)trace_pattern_count / thread_count;
-    for (int i = 1; i <= thread_count; ++i) {
+    long long split_arr[THREAD_COUNT + 1] = { 0 };
+    double page = (double)trace_pattern_count / THREAD_COUNT;
+    for (int i = 1; i <= THREAD_COUNT; ++i) {
         split_arr[i] = (long long)(page * i);
     }
     
@@ -59,18 +58,18 @@ int main(int argc, char** argv)
     clock_t start_time = clock();
 
     // マルチスレッド処理としてsearch()を呼び出す
-    thread threads[thread_count];
-    for (int i = 0; i < thread_count; ++i) {
+    thread threads[THREAD_COUNT];
+    for (int i = 0; i < THREAD_COUNT; ++i) {
         threads[i] = thread(search, i, split_arr[i + 1] - split_arr[i], split_arr[i], &pi);
     }
-    for (int i = 0; i < thread_count; ++i) {
+    for (int i = 0; i < THREAD_COUNT; ++i) {
         threads[i].join();
     }
 
     // 各スレッドの最上位から全体の最上位を決定
     long long all_max_board = -1;
     double all_max_magnification = 0.0;
-    for (int i = 0; i < thread_count; ++i) {
+    for (int i = 0; i < THREAD_COUNT; ++i) {
         if (all_max_magnification < result_magnification[i]) {
             all_max_magnification = result_magnification[i];
             all_max_board = result_board[i];

@@ -20,20 +20,25 @@
 
 ### 注意
 - DBのファイルサイズは最大なぞり消し数15個で **300GB** 弱になります
-- 実行時間は（CPU/SSDの性能にもよりますが）24時間以上かかる場合があります
+- 実行時間はCPU/SSDの性能によって大幅に変動します
+  - まずは少ないなぞり消し数で作成してみて、時間を見積もることをお勧めします
+    - 10個消し（2600万通り）
+    - 13個消し（16億通り）
+    - 15個消し（177億通り）
 
 ---
 
 ## find_the_best_pattern_sqlite / mt_find_the_best_pattern_sqlite
-特殊なぞりの最適解を計算します。（mtはマルチスレッドで処理を行います）
+特殊なぞりの最適解をファイル出力します。（mtはマルチスレッドで処理を行います）
 ### 手順
 1. find_the_best_pattern_sqliteプロジェクトにAlternative Source Code Formatsのsqlite3.cppを追加
 1. register_sqliteの手順を一通り実行し、DBを作成
 1. find_the_best_pattern_sqlite.cpp main()内の変数pathを、上記のDBを指すように変更
-1. releaseビルドを実行
-1. プロジェクトと同じ階層にあるfind_the_best_pattern_sqlite.batを編集
-1. 求めたい設定を引数で指定
-1. バッチファイルを実行
+   - mt版の場合はsearch()内
+2. releaseビルドを実行
+3. プロジェクトと同じ階層にあるfind_the_best_pattern_sqlite.batを編集
+4. 求めたい設定を引数で指定
+5. バッチファイルを実行
 
 ### 引数
 - ネクスト
@@ -66,14 +71,35 @@
   - mt版は1位のみ
 
 ### 注意
-- **mt版を使用する場合、あらかじめ使用するCPUのスレッド数を設定してください**
+- **mt版を使用する場合、size.hのTHREAD_COUNTを使用するCPUのスレッド数にしてください**
+- なぞり消し数に応じて処理時間が増えます
+
+---
+## any_next
+ユーザが入力したネクストにおける最適解を表示します。
+
+### 手順
+1. any_nextプロジェクトにAlternative Source Code Formatsのsqlite3.cppを追加
+1. register_sqliteの手順を一通り実行し、DBを作成
+1. any_next.cpp search()内の変数pathを、上記のDBを指すように変更
+1. releaseビルドを実行
+1. x64\Release\any_next_config.cfgを編集
+1. any_next.exeを実行
+1. 任意のネクストの数字8文字を入力（赤:1～紫:5）
+1. 盤面の番号を入力（find_the_best_pattern_sqliteの番号と同様）
+
+### 出力
+- 画面に表示されます
+
+### 注意
+- **mt版を使用する場合、size.hのTHREAD_COUNTを使用するCPUのスレッド数にしてください**
 - なぞり消し数に応じて処理時間が増えます
 
 ---
 
 ## display_of_chain_results
 連鎖結果を表示します。
-### 使い方
+### 手順
 1. releaseビルドを実行
 1. x64\Release\param_config.cfgを編集
     - =の後の数字を計算したい値に書き換えてください
