@@ -13,7 +13,6 @@
 #include <bitset>
 #include <thread>
 
-constexpr int THREAD_COUNT = 24;
 long long result_board[THREAD_COUNT] = {0};
 double result_magnification[THREAD_COUNT] = {0.0};
 
