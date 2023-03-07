@@ -118,7 +118,7 @@ void search(int ThreadID, long long page, long long offset, Param_Info* pi)
 
     sqlite3* db = NULL;
     sqlite3_stmt* pStmt;
-    const char* path = "C:\\sqlite\\tp_int64.sqlite3";
+    const char* path = "E:\\sqlite\\tp_int64_16.sqlite3";
     int ret;
 
     // DB接続
@@ -239,6 +239,9 @@ long long getTracePatternSize(const int max_trace)
         break;
     case 15:
         size = 17710655729;
+        break;
+    case 16:
+        size = 53964309390;
         break;
     default:
         break;

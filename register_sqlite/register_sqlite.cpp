@@ -21,12 +21,12 @@ int main()
     2からDBに登録したい場合は、all_countに48をセットすること
     */
     Board board;
-    int max_trace = 15;     // 最大なぞり消し数
+    int max_trace = 16;     // 最大なぞり消し数
     int now_trace = 1;
     int nest_level = 0;
     sqlite3* db = NULL;
     sqlite3_stmt* pStmt;
-    const char* path = "";  // E:\\sqlite\\tp.sqlite3
+    const char* path = "";  // E:\\sqlite\\tp_int64_16.sqlite3
     int ret;
 
     // 接続
@@ -54,6 +54,10 @@ int main()
     // 追加開始
     clock_t start_time = clock();
     cout << "\n" << "---------------------処理開始---------------------" << endl;
+
+    sqlite3_exec(db, "PRAGMA journal_mode = OFF;", 0, 0, 0);
+    sqlite3_exec(db, "PRAGMA synchronous = OFF;", 0, 0, 0);
+    sqlite3_exec(db, "PRAGMA temp_store = 2;", 0, 0, 0);        // memory
 
     // トランザクション開始
     sqlite3_exec(db, "BEGIN TRANSACTION", 0, 0, 0);
