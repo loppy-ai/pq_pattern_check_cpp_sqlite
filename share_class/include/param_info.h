@@ -44,6 +44,7 @@ public:
 	double getChainCoefficient() const;
 	int getMaxColor() const;
 	int getMaxConnection() const;
+	void setMaxConnection(const int);
 	double getChainMagnification(const int) const;
 	double getChainMagnification(const int, const double) const;
 	void setNextColorAny(const int*);

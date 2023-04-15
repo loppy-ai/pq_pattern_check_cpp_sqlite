@@ -126,6 +126,12 @@ int Param_Info::getMaxConnection() const
     return max_connection;
 }
 
+// Å‘åŒ‹‡”‚ğİ’è
+void Param_Info::setMaxConnection(const int no)
+{
+    max_connection = (no < 100) ? 3 : 4;
+}
+
 // ˜A½”{—¦‚ğæ“¾
 double Param_Info::getChainMagnification(const int chain_count) const
 {

@@ -46,6 +46,7 @@ int main(int argc, char** argv)
     pi.setNextColorAny(next);
     pi.setBoardPattern(board_no);
     pi.setChainCoefficient(board_no);
+    pi.setMaxConnection(board_no);
     long long trace_pattern_count = getTracePatternSize(pi.getMaxTrace());          // なぞり消しパターンの総数
     long long split_arr[THREAD_COUNT + 1] = { 0 };
     double page = (double)trace_pattern_count / THREAD_COUNT;
