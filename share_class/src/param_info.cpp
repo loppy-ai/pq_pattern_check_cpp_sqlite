@@ -105,6 +105,10 @@ void Param_Info::setChainCoefficient(const int no)
         // あたり＆プーボ
         chain_coefficient = 10.5;
     }
+    else if (no > 400 && no < 410) {
+        // なつぞらのアマノネ
+        chain_coefficient = 10.5;
+    }
     setChainCoefficientList();
 }
 

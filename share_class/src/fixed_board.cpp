@@ -87,6 +87,22 @@ void Fixed_Board::setFixedBoard(const int board_pattern)
 	case 317:	setBoard(board_pattern_307);	break;
 	case 318:	setBoard(board_pattern_308);	break;
 	case 323:   setBoard(board_pattern_303);    break;
+	case 401:	setBoard(board_pattern_401);	break;
+	case 402:	setBoard(board_pattern_402);	break;
+	case 403:	setBoard(board_pattern_403);	break;
+	case 404:	setBoard(board_pattern_404);	break;
+	case 405:	setBoard(board_pattern_405);	break;
+	case 406:	setBoard(board_pattern_406);	break;
+	case 407:	setBoard(board_pattern_407);	break;
+	case 408:	setBoard(board_pattern_408);	break;
+	case 411:	setBoard(board_pattern_401);	break;
+	case 412:	setBoard(board_pattern_402);	break;
+	case 413:	setBoard(board_pattern_403);	break;
+	case 414:	setBoard(board_pattern_404);	break;
+	case 415:	setBoard(board_pattern_405);	break;
+	case 416:	setBoard(board_pattern_406);	break;
+	case 417:	setBoard(board_pattern_407);	break;
+	case 418:	setBoard(board_pattern_408);	break;
 	default:
 		std::cout << "Error : board_pattern‚Ìİ’è‚ÉŒë‚è‚ª‚ ‚è‚Ü‚·" << std::endl;
 		std::cout << std::endl;
