@@ -32,6 +32,7 @@ private:
 	void applyTracePattern(Board*, const Board*);
 	void applyTracePatternBlue(Board*, const Board*);
 	void applyTracePatternYellow(Board*, const Board*);
+	void applyTracePatternPurple(Board*, const Board*);
 	void dropBoard(Board*);
 	void checkConnection(const int, const Param_Info*, Board*, Check_Board*);
 	void recursionCheckConnection(const int, Board*, Check_Board*, int*);

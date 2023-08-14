@@ -118,7 +118,10 @@ void search(int ThreadID, long long page, long long offset, Param_Info* pi)
 
     sqlite3* db = NULL;
     sqlite3_stmt* pStmt;
-    const char* path = "E:\\sqlite\\tp_int64_16.sqlite3";
+    // 15個消し用（高速）
+    const char* path = "C:\\sqlite\\tp_int64.sqlite3";
+    // 16個消し用（低速）
+    // const char* path = "E:\\sqlite\\tp_int64_16.sqlite3";
     int ret;
 
     // DB接続
@@ -165,6 +168,9 @@ void search(int ThreadID, long long page, long long offset, Param_Info* pi)
         }
         if ((pi->getBoardPattern() > 310) && (pi->getBoardPattern() < 320) && (prism_count == 0)) {
             continue;   // あたり＆プーボ盤面でプリズムボールを消していなかったら何もしない
+        }
+        if ((pi->getBoardPattern() > 410) && (pi->getBoardPattern() < 420) && (prism_count == 0)) {
+            continue;   // なつぞらのアマノネ盤面でプリズムボールを消していなかったら何もしない
         }
         // 更新の必要があるか確認
         if (max_magnification < magnification)
